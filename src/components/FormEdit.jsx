@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { UpdatePost } from "../api/apiFetch";
 
-export const FormEdit = ({ onEdit, setOnEdit, getDataPosts }) => {
+export const FormEdit = ({ onEdit, setOnEdit, setPosts }) => {
   const { id } = onEdit;
 
   const [inputValues, setInputValues] = useState({
@@ -28,7 +28,14 @@ export const FormEdit = ({ onEdit, setOnEdit, getDataPosts }) => {
     }
 
     await UpdatePost(id, inputValues);
-    await getDataPosts();
+
+    setPosts((prev) => {
+      const container = prev.reduce((acc, post) => {
+        if (post.id === id) return [...acc, { id, title: inputValues.title, description: inputValues.description }];
+        else return [...acc, post];
+      }, []);
+      return [...container];
+    });
     setOnEdit({ active: false, id: 0 });
   };
 

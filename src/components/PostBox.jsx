@@ -31,7 +31,7 @@ export const PostBox = ({ posts, setPosts }) => {
 
   const onClickDelete = async (postId) => {
     await DeletePost(postId);
-    await getDataPosts();
+    setPosts((prev) => prev.filter((post) => post.id !== postId));
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const PostBox = ({ posts, setPosts }) => {
 
   return (
     <div id="post-box" className="w-[70%] border-r-4 border-gray-700 overflow-y-scroll">
-      {onEdit.active && <FormEdit setOnEdit={setOnEdit} onEdit={onEdit} getDataPosts={getDataPosts} />}
+      {onEdit.active && <FormEdit setOnEdit={setOnEdit} onEdit={onEdit} setPosts={setPosts} />}
       <h2 className="mt-3 p-1 font-black underline max-w-xs mx-auto rounded-md text-2xl">Posteos</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-3 md:gap-10 m-10  xl:m-14">
         {/* Carga */}
