@@ -29,7 +29,7 @@ export const FormEdit = ({ onEdit, setOnEdit, getDataPosts }) => {
 
     await UpdatePost(id, inputValues);
     await getDataPosts();
-    await setOnEdit({ active: false, id: 0 });
+    setOnEdit({ active: false, id: 0 });
   };
 
   const cancelarEdit = (e) => {

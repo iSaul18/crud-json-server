@@ -11,8 +11,6 @@ export const PostBox = ({ posts, setPosts }) => {
     id: 0,
   });
 
-  const [onDelete, setOnDelete] = useState(false);
-
   const getDataPosts = async () => {
     try {
       const data = await getPosts();
@@ -33,7 +31,12 @@ export const PostBox = ({ posts, setPosts }) => {
 
   const onClickDelete = async (postId) => {
     await DeletePost(postId);
-    await getDataPosts();
+
+    const traer = async () => {
+      const data = await getPosts();
+      setPosts([...data]);
+    };
+    await traer();
   };
 
   useEffect(() => {
@@ -54,6 +57,7 @@ export const PostBox = ({ posts, setPosts }) => {
         {/* Exito */}
         {posts.map((post) => (
           <Post
+            key={post.id}
             id={post.id}
             title={post.title}
             description={post.description}

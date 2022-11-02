@@ -14,9 +14,9 @@ export const FormBox = ({ posts, setPosts }) => {
     e.preventDefault();
 
     if (Object.values(inputValues).every((value) => value.trim() !== "")) {
-      setPosts([...posts, { title: inputValues.title, description: inputValues.description }]);
-
       const createID = String(Date.now()).slice(-3) + Date.now().toString(16).slice(0);
+      setPosts([...posts, { id: createID, title: inputValues.title, description: inputValues.description }]);
+
       await CreatePosts({ id: createID, title: inputValues.title, description: inputValues.description });
       setInputValues({ title: "", description: "" });
 
@@ -24,7 +24,7 @@ export const FormBox = ({ posts, setPosts }) => {
 
       setTimeout(() => {
         setAgregado(false);
-      }, 3000);
+      }, 2000);
       return;
     }
 
@@ -32,7 +32,7 @@ export const FormBox = ({ posts, setPosts }) => {
 
     setTimeout(() => {
       setError(false);
-    }, 3000);
+    }, 2000);
   };
 
   const onInputChange = (e) => {
