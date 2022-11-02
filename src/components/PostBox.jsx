@@ -31,12 +31,7 @@ export const PostBox = ({ posts, setPosts }) => {
 
   const onClickDelete = async (postId) => {
     await DeletePost(postId);
-
-    const traer = async () => {
-      const data = await getPosts();
-      setPosts([...data]);
-    };
-    await traer();
+    await getDataPosts();
   };
 
   useEffect(() => {
